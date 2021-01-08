@@ -40,6 +40,12 @@ namespace Library.Service
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LibraryService", Version = "v1" });
             });
+            services.AddCors(o => o.AddPolicy("Local", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,10 +62,9 @@ namespace Library.Service
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
+            app.UseCors("Local");
 
             app.UseEndpoints(endpoints =>
             {

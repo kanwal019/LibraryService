@@ -40,15 +40,15 @@ namespace Library.Core.Repositories.Implementation
 
         public async Task AddBook(AddBooksInput input)
         {
-            var book = new Book
+            var item = new Dictionary<string, AttributeValue>
             {
-                Id = Guid.NewGuid(),
-                Name = input.BookName,
-                Author = input.BookAuthor,
-                Status = input.IsAvailable ? BookStatus.Available : BookStatus.Rented
+                { "Id", new AttributeValue { S = Guid.NewGuid().ToString() }},
+                { "Author", new AttributeValue { S = input.BookAuthor }},
+                { "Name", new AttributeValue { S = input.BookName }},
+                { "Status", new AttributeValue { S = input.IsAvailable ? BookStatus.Available : BookStatus.Rented }}
             };
 
-            await _dynamoDbHelper.DynamoPutItem(book);
+            await _dynamoDbHelper.DynamoPutItem(item, _tableName);
         }
 
         private Book ParseToBook(Dictionary<string, AttributeValue> item)

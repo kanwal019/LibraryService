@@ -18,18 +18,12 @@ namespace Library.Core.Helpers.Implementation
             client = new AmazonDynamoDBClient(Amazon.RegionEndpoint.APSouth1);
         }
 
-        public async Task DynamoPutItem(Book book)
+        public async Task DynamoPutItem(Dictionary<string, AttributeValue> item, string tableName)
         {
             var request = new PutItemRequest
             {
-                TableName = "Books",
-                Item = new Dictionary<string, AttributeValue>
-                  {
-                    { "Id", new AttributeValue { S = book.Id.ToString() }},
-                    { "Author", new AttributeValue { S = book.Author }},
-                    { "Name", new AttributeValue { S = book.Name }},
-                    { "Status", new AttributeValue { S = book.Status }}
-                  }
+                TableName = tableName,
+                Item = item
             };
 
             var response = await client.PutItemAsync(request);

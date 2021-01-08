@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Library.Service.Controllers
 {
@@ -24,6 +25,8 @@ namespace Library.Service.Controllers
         /// Get all the Books
         /// </summary>
         /// <returns></returns>
+        [Route("FetchAllBooks")]
+        [SwaggerOperation(OperationId = "FetchAllBooks")]
         [HttpGet]
         public async Task<IActionResult> FetchAllBooks()
         {
@@ -46,8 +49,10 @@ namespace Library.Service.Controllers
         /// Gets a list of books with matching Book Name or Author
         /// </summary>
         /// <returns></returns>
+        [Route("SearchBooks")]
+        [SwaggerOperation(OperationId = "SearchBooks")]
         [HttpGet]
-        public async Task<IActionResult> SearchBooks([FromRoute]string query)
+        public async Task<IActionResult> SearchBooks([FromQuery]string query)
         {
             try
             {
@@ -68,6 +73,8 @@ namespace Library.Service.Controllers
         /// Adds a single book
         /// </summary>
         /// <returns></returns>
+        [Route("AddBook")]
+        [SwaggerOperation(OperationId = "AddBook")]
         [HttpPost]
         public async Task<IActionResult> AddBook([FromBody]AddBooksInput book)
         {

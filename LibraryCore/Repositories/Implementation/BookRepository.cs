@@ -29,7 +29,7 @@ namespace Library.Core.Repositories.Implementation
                 books.Add(ParseToBook(item));
             }
             
-            return books;
+            return books.OrderBy(b => b.Name).ToList();
         }
 
         public async Task<List<Book>> SearchBooks(string query)

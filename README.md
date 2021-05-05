@@ -1,2 +1,2 @@
 # LibraryService
-Backend Service for a Simple Library
+Backend Service for a Simple Library application
